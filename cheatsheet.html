@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ghostty & Starship Cheatsheet</title>
+<title>Ghostty, tmux, Starship & Phoenix Cheatsheet</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -79,6 +79,8 @@
   .ghostty h2 { color: var(--nord8); }
   .starship h2 { color: var(--nord13); }
   .shell h2 { color: var(--nord14); }
+  .tmux h2 { color: var(--nord15); }
+  .phoenix h2 { color: var(--nord12); }
 
   .shortcut-row {
     display: flex;
@@ -196,7 +198,7 @@
 <body>
 
 <div class="header">
-  <h1>👻 Ghostty & ✨ Starship Cheatsheet</h1>
+  <h1>👻 Ghostty · 💻 tmux · ✨ Starship · 🐦‍🔥 Phoenix Cheatsheet</h1>
   <p>macOS · Nord · JetBrains Mono</p>
 </div>
 
@@ -264,6 +266,19 @@
     <div class="note">💡 Right-click pastes when nothing is selected, copies when text is selected.</div>
   </div>
 
+  <!-- GHOSTTY: CLI -->
+  <div class="section ghostty full-width">
+    <h2><span class="icon">👻</span> Ghostty — Useful CLI Commands</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.25rem 1.5rem;">
+      <div class="shortcut-row"><span class="label">List available themes</span><span class="keys">ghostty +list-themes</span></div>
+      <div class="shortcut-row"><span class="label">List installed fonts</span><span class="keys">ghostty +list-fonts</span></div>
+      <div class="shortcut-row"><span class="label">List all keybindings</span><span class="keys">ghostty +list-keybinds</span></div>
+      <div class="shortcut-row"><span class="label">Show current config</span><span class="keys">ghostty +show-config</span></div>
+      <div class="shortcut-row"><span class="label">Show config with docs</span><span class="keys">ghostty +show-config --default --docs</span></div>
+      <div class="shortcut-row"><span class="label">Validate config</span><span class="keys">ghostty +validate-config</span></div>
+    </div>
+  </div>
+
   <!-- STARSHIP: Prompt Anatomy -->
   <div class="section starship full-width">
     <h2><span class="icon">✨</span> Starship — Prompt Anatomy</h2>
@@ -312,16 +327,63 @@
     <div class="note">💡 Language modules only appear when relevant files are detected (e.g. Cargo.toml, Gemfile).</div>
   </div>
 
-  <!-- GHOSTTY: CLI -->
-  <div class="section ghostty full-width">
-    <h2><span class="icon">👻</span> Ghostty — Useful CLI Commands</h2>
+  <!-- TMUX: Sessions & Windows -->
+  <div class="section tmux">
+    <h2><span class="icon">💻</span> tmux — Sessions &amp; Windows</h2>
+    <div class="shortcut-row"><span class="label">Prefix key</span><span class="keys">Ctrl A</span></div>
+
+    <div class="sub-header">Sessions</div>
+    <div class="shortcut-row"><span class="label">Session tree</span><span class="keys">prefix Ctrl J</span></div>
+
+    <div class="sub-header">Windows</div>
+    <div class="shortcut-row"><span class="label">New window</span><span class="keys">prefix C</span></div>
+    <div class="shortcut-row"><span class="label">Previous window</span><span class="keys">prefix Ctrl H  /  S-←</span></div>
+    <div class="shortcut-row"><span class="label">Next window</span><span class="keys">prefix Ctrl L  /  S-→</span></div>
+
+    <div class="sub-header">Config</div>
+    <div class="shortcut-row"><span class="label">Reload config</span><span class="keys">prefix R</span></div>
+  </div>
+
+  <!-- TMUX: Panes -->
+  <div class="section tmux">
+    <h2><span class="icon">💻</span> tmux — Panes</h2>
+
+    <div class="sub-header">Split</div>
+    <div class="shortcut-row"><span class="label">Split right</span><span class="keys">prefix |</span></div>
+    <div class="shortcut-row"><span class="label">Split down</span><span class="keys">prefix -</span></div>
+    <div class="shortcut-row"><span class="label">Break to window</span><span class="keys">prefix B</span></div>
+
+    <div class="sub-header">Navigate</div>
+    <div class="shortcut-row"><span class="label">Go left / right / up / down</span><span class="keys">prefix h / l / k / j</span></div>
+
+    <div class="sub-header">Resize (repeatable)</div>
+    <div class="shortcut-row"><span class="label">Expand left / right</span><span class="keys">prefix H / L</span></div>
+    <div class="shortcut-row"><span class="label">Expand up / down</span><span class="keys">prefix K / J</span></div>
+  </div>
+
+  <!-- TMUX: Copy Mode -->
+  <div class="section tmux">
+    <h2><span class="icon">💻</span> tmux — Copy Mode</h2>
+    <div class="shortcut-row"><span class="label">Enter copy mode</span><span class="keys">prefix [</span></div>
+    <div class="shortcut-row"><span class="label">Begin selection</span><span class="keys">V</span></div>
+    <div class="shortcut-row"><span class="label">Rectangle toggle</span><span class="keys">R</span></div>
+    <div class="shortcut-row"><span class="label">Copy to clipboard</span><span class="keys">Y</span></div>
+    <div class="shortcut-row"><span class="label">Paste buffer</span><span class="keys">prefix P</span></div>
+
+    <div class="note">💡 Uses vi keys. Mouse is enabled — scroll to enter copy mode automatically.</div>
+  </div>
+
+  <!-- PHOENIX: Window Management -->
+  <div class="section phoenix full-width">
+    <h2><span class="icon">🐦‍🔥</span> Phoenix — Window Management</h2>
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.25rem 1.5rem;">
-      <div class="shortcut-row"><span class="label">List available themes</span><span class="keys">ghostty +list-themes</span></div>
-      <div class="shortcut-row"><span class="label">List installed fonts</span><span class="keys">ghostty +list-fonts</span></div>
-      <div class="shortcut-row"><span class="label">List all keybindings</span><span class="keys">ghostty +list-keybinds</span></div>
-      <div class="shortcut-row"><span class="label">Show current config</span><span class="keys">ghostty +show-config</span></div>
-      <div class="shortcut-row"><span class="label">Show config with docs</span><span class="keys">ghostty +show-config --default --docs</span></div>
-      <div class="shortcut-row"><span class="label">Validate config</span><span class="keys">ghostty +validate-config</span></div>
+      <div class="shortcut-row"><span class="label">Maximize</span><span class="keys">⌃ ⌥ ⌘ I</span></div>
+      <div class="shortcut-row"><span class="label">Left half <span style="color:var(--nord3);font-size:0.68rem">(repeats → next screen)</span></span><span class="keys">⌃ ⌥ ⌘ H</span></div>
+      <div class="shortcut-row"><span class="label">Right half <span style="color:var(--nord3);font-size:0.68rem">(repeats → prev screen)</span></span><span class="keys">⌃ ⌥ ⌘ L</span></div>
+      <div class="shortcut-row"><span class="label">Top-left quarter</span><span class="keys">⌃ ⌥ ⌘ Y  /  U</span></div>
+      <div class="shortcut-row"><span class="label">Top-right quarter</span><span class="keys">⌃ ⌥ ⌘ P  /  [</span></div>
+      <div class="shortcut-row"><span class="label">Bottom-left quarter</span><span class="keys">⌃ ⌥ ⌘ N  /  B</span></div>
+      <div class="shortcut-row"><span class="label">Bottom-right quarter</span><span class="keys">⌃ ⌥ ⌘ .  /  /</span></div>
     </div>
   </div>
 
