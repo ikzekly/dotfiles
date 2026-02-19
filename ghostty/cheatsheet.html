@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghostty & Starship Cheatsheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root {
+    --nord0: #2E3440; --nord1: #3B4252; --nord2: #434C5E; --nord3: #4C566A;
+    --nord4: #D8DEE9; --nord5: #E5E9F0; --nord6: #ECEFF4;
+    --nord7: #8FBCBB; --nord8: #88C0D0; --nord9: #81A1C1; --nord10: #5E81AC;
+    --nord11: #BF616A; --nord12: #D08770; --nord13: #EBCB8B; --nord14: #A3BE8C; --nord15: #B48EAD;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--nord0);
+    color: var(--nord4);
+    padding: 2rem;
+    line-height: 1.5;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--nord2);
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--nord6);
+    margin-bottom: 0.25rem;
+  }
+
+  .header p {
+    color: var(--nord3);
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section {
+    background: var(--nord1);
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid var(--nord2);
+  }
+
+  .section.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .section h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section h2 .icon { font-size: 1rem; }
+
+  .ghostty h2 { color: var(--nord8); }
+  .starship h2 { color: var(--nord13); }
+  .shell h2 { color: var(--nord14); }
+
+  .shortcut-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(76, 86, 106, 0.4);
+    font-size: 0.82rem;
+  }
+
+  .shortcut-row:last-child { border-bottom: none; }
+
+  .shortcut-row .label {
+    color: var(--nord4);
+    flex: 1;
+  }
+
+  .shortcut-row .keys {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--nord6);
+    background: var(--nord2);
+    padding: 0.2rem 0.55rem;
+    border-radius: 5px;
+    border: 1px solid var(--nord3);
+    white-space: nowrap;
+    margin-left: 0.75rem;
+  }
+
+  .sub-header {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--nord3);
+    margin-top: 0.75rem;
+    margin-bottom: 0.35rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(76, 86, 106, 0.3);
+  }
+
+  .sub-header:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+  .prompt-example {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    background: var(--nord0);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border: 1px solid var(--nord2);
+    line-height: 1.7;
+  }
+
+  .prompt-example .dir { color: var(--nord9); }
+  .prompt-example .branch { color: var(--nord3); }
+  .prompt-example .status { color: #d7879e; }
+  .prompt-example .duration { color: var(--nord13); }
+  .prompt-example .lang { color: var(--nord14); }
+  .prompt-example .docker { color: var(--nord9); }
+  .prompt-example .k8s { color: var(--nord8); }
+  .prompt-example .char { color: var(--nord15); }
+  .prompt-example .err { color: var(--nord11); }
+  .prompt-example .dim { color: var(--nord3); }
+  .prompt-example .exit { color: var(--nord11); }
+
+  .symbol-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem 1.5rem;
+  }
+
+  .symbol-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    padding: 0.2rem 0;
+  }
+
+  .symbol-row .sym {
+    font-family: 'JetBrains Mono', monospace;
+    color: #d7879e;
+    width: 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .symbol-row .meaning { color: var(--nord4); }
+
+  .note {
+    font-size: 0.72rem;
+    color: var(--nord3);
+    margin-top: 0.75rem;
+    font-style: italic;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(76, 86, 106, 0.3);
+  }
+
+  @media print {
+    body { background: #fff; color: #333; padding: 1rem; }
+    .section { border: 1px solid #ccc; background: #fafafa; }
+    .shortcut-row .keys { background: #eee; border-color: #ccc; color: #333; }
+    .prompt-example { background: #f5f5f5; border-color: #ddd; }
+    .header { border-bottom-color: #ccc; }
+    .header h1 { color: #111; }
+  }
+
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    body { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>👻 Ghostty & ✨ Starship Cheatsheet</h1>
+  <p>macOS · Nord · JetBrains Mono</p>
+</div>
+
+<div class="grid">
+
+  <!-- GHOSTTY: Tabs -->
+  <div class="section ghostty">
+    <h2><span class="icon">👻</span> Ghostty — Tabs</h2>
+    <div class="shortcut-row"><span class="label">New tab</span><span class="keys">⌘ T</span></div>
+    <div class="shortcut-row"><span class="label">Close tab / split</span><span class="keys">⌘ W</span></div>
+    <div class="shortcut-row"><span class="label">Previous tab</span><span class="keys">⌘ ⇧ [</span></div>
+    <div class="shortcut-row"><span class="label">Next tab</span><span class="keys">⌘ ⇧ ]</span></div>
+    <div class="shortcut-row"><span class="label">Go to tab 1–8</span><span class="keys">⌘ 1 … 8</span></div>
+    <div class="shortcut-row"><span class="label">Go to last tab</span><span class="keys">⌘ 9</span></div>
+  </div>
+
+  <!-- GHOSTTY: Splits -->
+  <div class="section ghostty">
+    <h2><span class="icon">👻</span> Ghostty — Splits</h2>
+    <div class="shortcut-row"><span class="label">Split right</span><span class="keys">⌘ D</span></div>
+    <div class="shortcut-row"><span class="label">Split down</span><span class="keys">⌘ ⇧ D</span></div>
+    <div class="shortcut-row"><span class="label">Zoom split (toggle)</span><span class="keys">⌘ ⇧ ↵</span></div>
+
+    <div class="sub-header">Navigate</div>
+    <div class="shortcut-row"><span class="label">Go to split ↑ ↓ ← →</span><span class="keys">⌘ ⌥ Arrow</span></div>
+
+    <div class="sub-header">Resize</div>
+    <div class="shortcut-row"><span class="label">Resize split ↑ ↓ ← →</span><span class="keys">⌘ ⌃ Arrow</span></div>
+    <div class="shortcut-row"><span class="label">Equalize all splits</span><span class="keys">⌘ ⌃ =</span></div>
+  </div>
+
+  <!-- GHOSTTY: General -->
+  <div class="section ghostty">
+    <h2><span class="icon">👻</span> Ghostty — General</h2>
+    <div class="shortcut-row"><span class="label">Copy</span><span class="keys">⌘ C</span></div>
+    <div class="shortcut-row"><span class="label">Paste</span><span class="keys">⌘ V</span></div>
+    <div class="shortcut-row"><span class="label">Toggle fullscreen</span><span class="keys">⌘ ↵</span></div>
+    <div class="shortcut-row"><span class="label">Command palette</span><span class="keys">⌘ ⇧ P</span></div>
+    <div class="shortcut-row"><span class="label">Open config</span><span class="keys">⌘ ,</span></div>
+
+    <div class="sub-header">Font Size</div>
+    <div class="shortcut-row"><span class="label">Increase font</span><span class="keys">⌘ +</span></div>
+    <div class="shortcut-row"><span class="label">Decrease font</span><span class="keys">⌘ -</span></div>
+    <div class="shortcut-row"><span class="label">Reset font size</span><span class="keys">⌘ 0</span></div>
+
+    <div class="sub-header">Shell Integration</div>
+    <div class="shortcut-row"><span class="label">Jump to prev prompt</span><span class="keys">⌘ ↑</span></div>
+    <div class="shortcut-row"><span class="label">Jump to next prompt</span><span class="keys">⌘ ↓</span></div>
+    <div class="shortcut-row"><span class="label">Click to move cursor</span><span class="keys">⌥ Click</span></div>
+    <div class="shortcut-row"><span class="label">Open URL</span><span class="keys">⌘ Click</span></div>
+  </div>
+
+  <!-- GHOSTTY: Quality of Life -->
+  <div class="section ghostty">
+    <h2><span class="icon">👻</span> Ghostty — Behaviors</h2>
+    <div class="shortcut-row"><span class="label">Copy on select</span><span class="keys">enabled</span></div>
+    <div class="shortcut-row"><span class="label">Paste protection</span><span class="keys">enabled</span></div>
+    <div class="shortcut-row"><span class="label">Trim trailing whitespace</span><span class="keys">enabled</span></div>
+    <div class="shortcut-row"><span class="label">Right-click</span><span class="keys">copy / paste</span></div>
+    <div class="shortcut-row"><span class="label">Mouse hides on typing</span><span class="keys">enabled</span></div>
+    <div class="shortcut-row"><span class="label">Scroll on keystroke</span><span class="keys">enabled</span></div>
+    <div class="shortcut-row"><span class="label">Session restore</span><span class="keys">always</span></div>
+    <div class="shortcut-row"><span class="label">⌥ as Alt/Meta</span><span class="keys">enabled</span></div>
+
+    <div class="note">💡 Right-click pastes when nothing is selected, copies when text is selected.</div>
+  </div>
+
+  <!-- STARSHIP: Prompt Anatomy -->
+  <div class="section starship full-width">
+    <h2><span class="icon">✨</span> Starship — Prompt Anatomy</h2>
+    <div class="prompt-example">
+      <span class="dim">Line 1:</span>  <span class="dir">~/projects/my-api</span> <span class="branch">main</span><span class="status">(*⇡2)</span> <span class="duration">5s</span><br>
+      <span class="dim">Line 2:</span>  <span class="lang">⬢ 20.11.0</span> <span class="lang">⚙ 1.78.0</span> <span class="docker">🐋 default</span> <span class="k8s">⛵ prod/api</span> <span class="char">❯</span> <span class="dim">your command here</span><br>
+      <br>
+      <span class="dim">On error:</span> <span class="exit">1</span> <span class="err">❯</span> <span class="dim">(exit code shown, prompt turns red)</span>
+    </div>
+  </div>
+
+  <!-- STARSHIP: Git Symbols -->
+  <div class="section starship">
+    <h2><span class="icon">✨</span> Starship — Git Symbols</h2>
+    <div class="symbol-table">
+      <div class="symbol-row"><span class="sym">*</span><span class="meaning">Conflicted changes</span></div>
+      <div class="symbol-row"><span class="sym"></span><span class="meaning">Untracked files</span></div>
+      <div class="symbol-row"><span class="sym"></span><span class="meaning">Modified files</span></div>
+      <div class="symbol-row"><span class="sym"></span><span class="meaning">Staged changes</span></div>
+      <div class="symbol-row"><span class="sym"></span><span class="meaning">Renamed files</span></div>
+      <div class="symbol-row"><span class="sym"></span><span class="meaning">Deleted files</span></div>
+      <div class="symbol-row"><span class="sym">≡</span><span class="meaning">Stashed changes</span></div>
+      <div class="symbol-row"><span class="sym">⇡3</span><span class="meaning">3 commits ahead</span></div>
+      <div class="symbol-row"><span class="sym">⇣2</span><span class="meaning">2 commits behind</span></div>
+      <div class="symbol-row"><span class="sym">⇕</span><span class="meaning">Branch diverged</span></div>
+    </div>
+  </div>
+
+  <!-- STARSHIP: Module Indicators -->
+  <div class="section starship">
+    <h2><span class="icon">✨</span> Starship — Module Indicators</h2>
+
+    <div class="sub-header">Languages (auto-detected)</div>
+    <div class="shortcut-row"><span class="label">Node.js</span><span class="keys">⬢ v20.11.0</span></div>
+    <div class="shortcut-row"><span class="label">Rust</span><span class="keys">⚙ v1.78.0</span></div>
+    <div class="shortcut-row"><span class="label">Go</span><span class="keys">🔹v1.22.0</span></div>
+    <div class="shortcut-row"><span class="label">Ruby</span><span class="keys">💎 v3.3.0</span></div>
+    <div class="shortcut-row"><span class="label">Python (venv)</span><span class="keys">myenv</span></div>
+
+    <div class="sub-header">Infrastructure</div>
+    <div class="shortcut-row"><span class="label">Docker context</span><span class="keys">🐋 default</span></div>
+    <div class="shortcut-row"><span class="label">Kubernetes</span><span class="keys">⛵ ctx/ns</span></div>
+
+    <div class="sub-header">Other</div>
+    <div class="shortcut-row"><span class="label">Command duration</span><span class="keys">5s (≥3s)</span></div>
+    <div class="shortcut-row"><span class="label">Exit code on failure</span><span class="keys" style="color:var(--nord11)">1</span></div>
+    <div class="shortcut-row"><span class="label">Background jobs</span><span class="keys">1✦</span></div>
+    <div class="shortcut-row"><span class="label">Read-only directory</span><span class="keys">🔒</span></div>
+
+    <div class="note">💡 Language modules only appear when relevant files are detected (e.g. Cargo.toml, package.json).</div>
+  </div>
+
+  <!-- GHOSTTY: CLI -->
+  <div class="section ghostty full-width">
+    <h2><span class="icon">👻</span> Ghostty — Useful CLI Commands</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.25rem 1.5rem;">
+      <div class="shortcut-row"><span class="label">List available themes</span><span class="keys">ghostty +list-themes</span></div>
+      <div class="shortcut-row"><span class="label">List installed fonts</span><span class="keys">ghostty +list-fonts</span></div>
+      <div class="shortcut-row"><span class="label">List all keybindings</span><span class="keys">ghostty +list-keybinds</span></div>
+      <div class="shortcut-row"><span class="label">Show current config</span><span class="keys">ghostty +show-config</span></div>
+      <div class="shortcut-row"><span class="label">Show config with docs</span><span class="keys">ghostty +show-config --default --docs</span></div>
+      <div class="shortcut-row"><span class="label">Validate config</span><span class="keys">ghostty +validate-config</span></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
