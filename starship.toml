@@ -16,7 +16,6 @@ $cmd_duration\
 $line_break\
 $python\
 $rust\
-$golang\
 $ruby\
 $docker_context\
 $jobs\
@@ -107,11 +106,11 @@ format = "[⬢ $version]($style) "
 style = "green"
 
 [rust]
-format = "[⚙ $version]($style) "
+format = "[🦀 $version]($style) "
 style = "red"
 
 [golang]
-format = "[🔹$version]($style) "
+format = "[🐹$version]($style) "
 style = "cyan"
 
 [ruby]
