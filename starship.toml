@@ -1,0 +1,145 @@
+# =============================================================================
+# Starship Prompt Configuration
+#
+# A lean, informative prompt for: Rust, Node/TS, Go, Ruby
+# with Docker, Kubernetes, and GCP context.
+# =============================================================================
+
+format = """\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$python\
+$rust\
+$golang\
+$ruby\
+$docker_context\
+$jobs\
+$status\
+$character"""
+
+# Move command duration to right side to keep left prompt clean.
+right_format = ""
+
+add_newline = false
+
+# -----------------------------------------------------------------------------
+# Directory
+# -----------------------------------------------------------------------------
+[directory]
+style = "blue"
+truncation_length = 4
+truncate_to_repo = true
+read_only = " 🔒"
+
+# -----------------------------------------------------------------------------
+# Character (prompt symbol)
+# -----------------------------------------------------------------------------
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+# -----------------------------------------------------------------------------
+# Git
+# -----------------------------------------------------------------------------
+[git_branch]
+format = "[$branch]($style)"
+style = "bright-black"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = ""
+untracked = ""
+modified = ""
+staged = ""
+renamed = ""
+deleted = ""
+stashed = "≡"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+# -----------------------------------------------------------------------------
+# Command Duration
+# -----------------------------------------------------------------------------
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+min_time = 3_000
+show_notifications = true
+min_time_to_notify = 30_000
+
+# -----------------------------------------------------------------------------
+# Exit Status (show actual exit codes on failure)
+# -----------------------------------------------------------------------------
+[status]
+disabled = false
+format = "[$status]($style) "
+style = "red"
+
+# -----------------------------------------------------------------------------
+# Background Jobs
+# -----------------------------------------------------------------------------
+[jobs]
+format = "[$number$symbol]($style) "
+style = "blue"
+
+# -----------------------------------------------------------------------------
+# Language Runtimes (only appear in relevant directories)
+# -----------------------------------------------------------------------------
+[python]
+format = "[$virtualenv]($style) "
+style = "bright-black"
+
+[nodejs]
+format = "[⬢ $version]($style) "
+style = "green"
+
+[rust]
+format = "[⚙ $version]($style) "
+style = "red"
+
+[golang]
+format = "[🔹$version]($style) "
+style = "cyan"
+
+[ruby]
+format = "[💎 $version]($style) "
+style = "red"
+
+# -----------------------------------------------------------------------------
+# Infrastructure Context
+# -----------------------------------------------------------------------------
+[docker_context]
+format = "[🐋 $context]($style) "
+style = "blue"
+
+[kubernetes]
+disabled = false
+format = "[⛵ $context(/$namespace)]($style) "
+style = "bright-blue"
+
+[gcloud]
+format = "[☁️ $project]($style) "
+style = "blue"
+
+# Disable modules you don't use to keep things snappy.
+[aws]
+disabled = true
+
+[azure]
+disabled = true
+
+[package]
+disabled = true
