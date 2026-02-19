@@ -1,4 +1,3 @@
-* [alacritty](https://github.com/alacritty/alacritty) terminal emulator
 * [ghostty](https://github.com/ghostty-org/ghostty) terminal emulator
 * [tmux](https://github.com/tmux/tmux) multiplexer
 * [vim](https://github.com/vim/vim) editor
