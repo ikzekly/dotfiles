@@ -5,6 +5,8 @@
 # with Docker, Kubernetes, and GCP context.
 # =============================================================================
 
+command_timeout = 2000
+
 format = """\
 $username\
 $hostname\
